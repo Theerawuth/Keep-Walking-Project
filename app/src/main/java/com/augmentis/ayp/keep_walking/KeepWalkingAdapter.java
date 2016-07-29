@@ -34,8 +34,9 @@ public class KeepWalkingAdapter extends RecyclerView.Adapter<KeepWalkingHolder>{
 
     @Override
     public void onBindViewHolder(KeepWalkingHolder holder, int position) {
-        Log.d(TAG,"onBindViewHolder");
             KeepWalking keepWalking = _keepWalking.get(position);
+        Log.d(TAG,"onBindViewHolder ");
+
             holder.bindKeepWalking(keepWalking, position);
     }
 

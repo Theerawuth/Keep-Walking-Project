@@ -1,0 +1,69 @@
+package com.augmentis.ayp.keep_walking;
+
+import android.content.Intent;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.List;
+
+public class KeepWalkingListFragment extends Fragment {
+
+    private static final String TAG = "TestTAG";
+    private Button addButton;
+    private RecyclerView _recycleView;
+    private KeepWalkingAdapter adapter;
+    protected static final int REQUEST_UPDATE_WALKER = 200;
+
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.activity_keep_walking_list_fragment, container, false);
+
+        _recycleView = (RecyclerView) v.findViewById(R.id.keep_recycle_view);
+        _recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        Log.d(TAG,"Test");
+        updateUI();
+        addButton = (Button) v.findViewById(R.id.add_button);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), EditKeepWalkingActivity.class);
+                startActivity(intent);
+            }
+        });
+        return  v;
+
+    }
+
+    private void updateUI() {
+        KeepWalkingLab keepwalkinglab = KeepWalkingLab.getInstance();
+        Log.d(TAG,"Test");
+        if(!keepwalkinglab.getKeepWalkingList().isEmpty()) {
+            Log.d(TAG,"Test2");
+            List<KeepWalking> keepWalkingList = keepwalkinglab.getKeepWalkingList();
+            if(adapter==null){
+                adapter = new KeepWalkingAdapter(keepWalkingList, getActivity());
+                _recycleView.setAdapter(adapter);
+            }
+            else
+            {
+                _recycleView.setAdapter(adapter);
+            }
+
+
+        }
+    }
+}
