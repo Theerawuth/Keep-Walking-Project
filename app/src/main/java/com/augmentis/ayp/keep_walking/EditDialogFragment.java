@@ -1,6 +1,7 @@
 package com.augmentis.ayp.keep_walking;
 
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,64 +25,42 @@ import java.util.UUID;
  * Created by Theerawuth on 7/29/2016.
  */
 public class EditDialogFragment extends DialogFragment {
-
     EditText inputTitle;
     TextView dateText;
-    public Date dateKeepwalking;
-    boolean flagAdd = false;
-    public KeepWalking keepWalking;
-
-    private static final String KEEPWALKING_ID = "ID";
+    Date dateKeepWalking;
 
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_dialog_title, container, false);
-        inputTitle = (EditText) v.findViewById(R.id.title_dialog);
-        dateText = (TextView) v.findViewById(R.id.date_dialog);
-        dateKeepwalking = new Date();
-
-        UUID _id = (UUID) getArguments().getSerializable(KEEPWALKING_ID);
-
-        if (_id == null)
-        {
-            flagAdd = true;
-        }
-        else
-        {
-            keepWalking = KeepWalkingLab.getInstance().getKeepWalkingById(_id);
-            inputTitle.setText(keepWalking.getTitle());
-        }
-
-        return v;
+    //step1
+    public static EditDialogFragment newInstance(){
+        EditDialogFragment df = new EditDialogFragment();
+        return df;
     }
-
-    @NonNull
-    @Override
+//
+    //step 3
+//
+//    @NonNull
+//    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new AlertDialog.Builder(getActivity())
-                .setTitle("TITLE: ")
-                .setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (flagAdd == true)
-                        {
-                            KeepWalking keepwalking = new KeepWalking();
-                            keepwalking.setTitle(inputTitle.getText().toString());
-                            keepwalking.setKeepwalkingDate(dateKeepwalking);
-                            KeepWalkingLab keepWalkingLab = KeepWalkingLab.getInstance();       //สร้าง object ใหม่ เพื่อใช้ ArrayList
-                            keepWalkingLab.keepWalkingList.add(keepwalking);
-                        }
-                        else
-                        {
-                            keepWalking.setTitle(inputTitle.getText().toString());
-                            keepWalking.setKeepwalkingDate(dateKeepwalking);
-                        }
 
-                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                        startActivity(intent);
+        View v = LayoutInflater.from(getActivity()).inflate(R.layout.activity_dialog_title, null); //สร้าง View เข้าไป
+        inputTitle = (EditText) v.findViewById(R.id.title_input_dialog);
+        dateText = (TextView) v.findViewById(R.id.date_dialog);
+        dateKeepWalking = new Date(); // set date now
 
+        AlertDialog.Builder builder =  new AlertDialog.Builder(getActivity());   // object ที่ใช้สร้าง Dialog แล้วกำหนดค่าต่างๆ ต่อ
+        builder.setView(v);
+        builder.setTitle("TITLE: ");
+        builder.setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                    KeepWalking keepwalking = new KeepWalking();
+                    keepwalking.setTitle(inputTitle.getText().toString());
+                    keepwalking.setKeepwalkingDate(dateKeepWalking);
+                    KeepWalkingLab keepWalkingLab = KeepWalkingLab.getInstance();       //สร้าง object ใหม่ เพื่อใช้ ArrayList
+                    keepWalkingLab.keepWalkingList.add(keepwalking);
+                    Intent intent = new Intent(getActivity(),MainActivity.class);
+                    startActivity(intent);
                     }
                 })
                 .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -89,7 +68,8 @@ public class EditDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
-                })
-                .create();
+                });
+
+        return  builder.create();
     }
 }

@@ -1,5 +1,7 @@
 package com.augmentis.ayp.keep_walking;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -26,12 +28,12 @@ public class EditKeepWalkingActivity extends FragmentActivity {
         bundle.putSerializable(KEEPWALKING_ID, test);
 
         Log.d(TAG,"UUID = " + test);
-        DialogFragment fm = new DialogFragment();
-        EditDialogFragment df = new EditDialogFragment();
-        df.show(fm, "DIALOG TITLE");
-        df.setArguments(bundle);
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment f = new UpdateFragment();
+        f.setArguments(bundle);
         fm.beginTransaction()
-                .add(R.id.fragment_container2, df)
+                .add(R.id.fragment_container2, f)
                 .commit();
     }
+
 }

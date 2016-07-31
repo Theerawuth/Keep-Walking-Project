@@ -14,8 +14,6 @@ import android.view.ViewGroup;
 
 public  class MainActivity extends FragmentActivity {
 
-    private RecyclerView keepWalkingRecycleView;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

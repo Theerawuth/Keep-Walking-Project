@@ -1,10 +1,15 @@
 package com.augmentis.ayp.keep_walking;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,15 +20,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Date;
 import java.util.List;
 
 public class KeepWalkingListFragment extends Fragment {
 
     private static final String TAG = "TestTAG";
+    private static final String DIALOG_ADD = "DIALOG_ADD";
     private Button addButton;
     private RecyclerView _recycleView;
     private KeepWalkingAdapter adapter;
     protected static final int REQUEST_UPDATE_WALKER = 200;
+    private EditText input_title;
+    private TextView date;
 
 
     @Nullable
@@ -40,8 +49,9 @@ public class KeepWalkingListFragment extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), EditKeepWalkingActivity.class);
-                startActivity(intent);
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                EditDialogFragment editDialogFragment = EditDialogFragment.newInstance();
+                editDialogFragment.show(fm, DIALOG_ADD);
             }
         });
         return  v;
@@ -66,4 +76,29 @@ public class KeepWalkingListFragment extends Fragment {
 
         }
     }
+
+//    public Dialog onCreateDialog(Bundle savedInstanceState) {
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//        // Get the layout inflater
+//        LayoutInflater inflater = getActivity().getLayoutInflater();
+//
+//        // Inflate and set the layout for the dialog
+//        // Pass null as the parent view because its going in the dialog layout
+//        builder.setView(inflater.inflate(R.layout.activity_dialog_title, null))
+//
+//                // Add action buttons
+//                .setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        // sign in the user ...
+//                    }
+//                })
+//                .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+////                        LoginDialogFragment.this.getDialog().cancel();
+//                    }
+//                });
+//        return builder.create();
+//    }
 }
