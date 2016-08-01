@@ -10,10 +10,17 @@ import java.util.UUID;
 public class KeepWalking {
     private UUID id;
     private String title;
-    private Date keepwalkingDate;
+    private Date keepWalkingDate;
 
     public KeepWalking() {
-        id = UUID.randomUUID();
+
+        this(UUID.randomUUID());
+    }
+
+    public KeepWalking(UUID uuid) {
+        this.id = uuid;
+        keepWalkingDate = new Date();
+
     }
 
     public UUID getId() {
@@ -32,14 +39,12 @@ public class KeepWalking {
         this.title = title;
     }
 
-    public String getKeepWalkingDate() {
-        SimpleDateFormat format = new SimpleDateFormat("dd MMMM yyyy");
-        String dateTime = format.format(new Date());
-        return dateTime;
+    public Date getKeepWalkingDate() {
+        return keepWalkingDate;
     }
 
-    public void setKeepwalkingDate(Date keepwalkingDate) {
-        this.keepwalkingDate = keepwalkingDate;
+    public void setKeepWalkingDate(Date keepWalkingDate) {
+        this.keepWalkingDate = keepWalkingDate;
     }
 
 
