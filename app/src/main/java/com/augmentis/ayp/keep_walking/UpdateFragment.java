@@ -47,7 +47,7 @@ public class UpdateFragment extends Fragment {
         }
         else
         {
-            keepWalking = KeepWalkingLab.getInstance().getKeepWalkingById(_id);
+            keepWalking = KeepWalkingLab.getInstance(getActivity()).getKeepWalkingById(_id);
             inputTitleText.setText(keepWalking.getTitle());
         }
 
@@ -59,14 +59,14 @@ public class UpdateFragment extends Fragment {
                 {
                     KeepWalking keepwalking = new KeepWalking();
                     keepwalking.setTitle(inputTitleText.getText().toString());
-                    keepwalking.setKeepwalkingDate(dateKeepWalking);
-                    KeepWalkingLab keepWalkingLab = KeepWalkingLab.getInstance();       //สร้าง object ใหม่ เพื่อใช้ ArrayList
-                    keepWalkingLab.keepWalkingList.add(keepwalking);
+                    keepwalking.setKeepWalkingDate(dateKeepWalking);
+                    KeepWalkingLab keepWalkingLab = KeepWalkingLab.getInstance(getActivity());       //สร้าง object ใหม่ เพื่อใช้ ArrayList
+                    keepWalkingLab.getKeepWalkingList().add(keepwalking);
                 }
                 else
                 {
                     keepWalking.setTitle(inputTitleText.getText().toString());
-                    keepWalking.setKeepwalkingDate(dateKeepWalking);
+                    keepWalking.setKeepWalkingDate(dateKeepWalking);
                 }
 
                 Intent intent = new Intent(getActivity(), MainActivity.class);

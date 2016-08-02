@@ -13,8 +13,8 @@ public class KeepWalkingBaseHelper extends SQLiteOpenHelper {
 
     private static final int VERSION = 1;
 
-    private static final String DATABASE_NAME = "keepwalkingBase.db";
-    private static final String TAG = "KeepwalkingBaseHelper";
+    private static final String DATABASE_NAME = "keepWalkingBase.db";
+    private static final String TAG = "KeepWalkingBaseHelper";
 
     public KeepWalkingBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);

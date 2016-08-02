@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import java.util.UUID;
  * Created by Theerawuth on 7/29/2016.
  */
 public class EditDialogFragment extends DialogFragment {
+    private static final String TAG = "KeepWalkingBaseHelper";
     EditText inputTitle;
     TextView dateText;
     Date dateKeepWalking;
@@ -53,12 +55,11 @@ public class EditDialogFragment extends DialogFragment {
         builder.setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                    Log.d(TAG, "Save database " );
                     KeepWalking keepwalking = new KeepWalking();
                     keepwalking.setTitle(inputTitle.getText().toString());
-                    keepwalking.setKeepwalkingDate(dateKeepWalking);
-                    KeepWalkingLab keepWalkingLab = KeepWalkingLab.getInstance();       //สร้าง object ใหม่ เพื่อใช้ ArrayList
-                    keepWalkingLab.keepWalkingList.add(keepwalking);
+                    keepwalking.setKeepWalkingDate(dateKeepWalking);
+                    KeepWalkingLab.getInstance(getActivity()).addKeepWalking(keepwalking);       //สร้าง object ใหม่ เพื่อใช้ ArrayList
                     Intent intent = new Intent(getActivity(),MainActivity.class);
                     startActivity(intent);
                     }

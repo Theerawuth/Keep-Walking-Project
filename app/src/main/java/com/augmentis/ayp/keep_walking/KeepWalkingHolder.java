@@ -42,7 +42,7 @@ public class KeepWalkingHolder extends RecyclerView.ViewHolder implements View.O
         _keepWalking = keepwalking;
         _keepWalkingID = _keepWalking.getId();
         titleEditText.setText(_keepWalking.getTitle());
-        dateTextView.setText(_keepWalking.getKeepWalkingDate());
+        dateTextView.setText(_keepWalking.getKeepWalkingDate().toString());
 
     }
 
